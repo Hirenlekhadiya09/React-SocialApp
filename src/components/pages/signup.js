@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import Navbar from '../Layout/Navbar'
+import { toast } from 'react-toastify';
+import { useForm } from 'react-hook-form';
 
 const Signup = () => {
 
@@ -19,6 +21,8 @@ const Signup = () => {
         }
     }, [])
 
+    const {register, handleSubmit, formState: { errors }} = useForm();
+    
     const [file, setFile] = useState("");
 
     function onChange(event) {
@@ -36,8 +40,35 @@ const Signup = () => {
         setUser({ ...user, [e.target.name]: e.target.value })
     }
 
+  const showpassword = () => {
+    var pwd = document.getElementById("myPassword");
+    if (pwd.type === "password") {
+        pwd.type = "text";
+    } else {
+        pwd.type = "password";
+    }
+  };
+
     const signup = async (e) => {
         e.preventDefault();
+        let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        //let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+        if(!username){
+            return toast.error("UserName is required")
+        }
+        if(!email){
+            return toast.error("Email is required")
+        }
+        if(!regEmail.test(email)){
+            return toast.error("Invalid Email");
+        }
+        if(!password){
+            return toast.error("Password is required")
+        }
+        // if(!strongRegex.test(password)){
+        //     return toast.error("Password strength is too weak");
+        // }
+      
         user.image = file;
         const formData = new FormData();
         formData.append("username", user.username);
@@ -45,13 +76,16 @@ const Signup = () => {
         formData.append("password", user.password);
         formData.append("image", file);
 
-        let result = await axios.post("http://localhost:5000/signup", formData)
-        // localStorage.setItem("id",)
-        // console.log(result._id)
-        localStorage.setItem("auth",JSON.stringify(result.data.token))
-        history.push({
-            pathname: '/pages/home',
-            state: { detail: "text" }
+        await axios.post("http://localhost:5000/signup", formData).then((data) => {
+             // localStorage.setItem("id",)
+            // console.log(result._id)
+            //localStorage.setItem("auth",JSON.stringify(data.data.token))
+            history.push({
+            pathname: '/pages/login',
+            })
+            toast.success("You have successfully Signup!")
+        }).catch((error) => {
+            toast.error("Failed!")
         })
     }
 
@@ -61,17 +95,18 @@ const Signup = () => {
             <div className="container">
                 <div className="w-50 mx-auto shadow p-3">
                     <h2 className="text-xenter mb-4">Signup to our site</h2>
-                    <form>
+                    <form onSubmit={(e) => handleSubmit(signup(e))}>
                         <div className="form-group">
                             {/* <label className="font-bold">UserName</label> */}
                             <h5>UserName</h5>
                             <input type="text"
                                 className="px-4 py-2 mb-4"
                                 placeholder="Enter Username"
+                                {...register('username', { required: true })}
                                 name="username"
                                 value={username}
                                 onChange={e => onInputChange(e)}
-                                required
+                                
                             />
                         </div>
                         <div className="form-group">
@@ -80,23 +115,32 @@ const Signup = () => {
                             <input type="email"
                                 className="px-4 py-2 mb-4"
                                 placeholder="Enter EmailId"
+                                {...register('email', { required: true })}
                                 name="email"
                                 value={email}
                                 onChange={e => onInputChange(e)}
-                                required
+                                
                             />
                         </div>
                         <div className="form-group">
                             {/* <label className="font-bold">Password</label> */}
                             <h5>Password</h5>
                             <input type="password"
+                                 id="myPassword"
                                 className="px-4 py-2 mb-4"
                                 placeholder="Enter Password"
+                                {...register('password', { required: true })}
                                 name="password"
                                 value={password}
                                 onChange={e => onInputChange(e)}
-                                required
                             />
+                             <br />
+                            <p>
+                                <label>
+                                <input type="checkbox" onClick={showpassword} />&nbsp;
+                                <span>show password</span>
+                                </label>
+                            </p>
                         </div>
                         <div className="form-group">
                             {/* <label className="font-bold">Upload Profile</label> */}
@@ -104,14 +148,16 @@ const Signup = () => {
                             <input type="file" className="px-4 py-2 mb-4"
                                 name="image"
                                 value={image}
+                                {...register('image', { required: true })}
                                 onChange={e => onChange(e)}
                             />
                         </div>
                         <br></br>
-                        <button onClick={(e) => signup(e)} className="btn btn-primary btn-block">Signup</button>
+                        {/* <button onClick={(e) => signup(e)} className="btn btn-primary btn-block">Signup</button> */}
+                        <input type="submit" className="btn btn-primary btn-block" value="Signup"/>
                         <br></br>
                         <br></br>
-                        <p>Already have an account?  <a href="/Pages/login">Sign Up</a> </p>
+                        <p>Already have an account?  <a href="/Pages/login">Login</a> </p>
                     </form>
                 </div>
             </div>

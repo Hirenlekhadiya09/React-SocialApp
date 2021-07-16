@@ -2,7 +2,8 @@ import React, {  useState } from 'react'
 import axios from 'axios';
 import { useHistory  } from 'react-router-dom';
 import Navbar from '../Layout/Navbar'
-
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 const AddPost = () => {
     console.log(JSON.parse(localStorage.getItem('userid')),"{}{}{}{}")
     const history = useHistory();
@@ -11,6 +12,8 @@ const AddPost = () => {
         body:"",
         image:"",
     })
+
+    const  { register,handleSubmit, formState: { errors }} = useForm();
     
     const [file,setFile] = useState("");
 
@@ -32,6 +35,13 @@ const AddPost = () => {
 
     const addpost = async (e) => {
         e.preventDefault();
+        if(!title){
+            return toast.error("Title is requred")
+        }
+        if(!body){
+            return toast.error("Body is requred")
+        }
+
         post.image = file;
         const formData = new FormData();
         formData.append("title",post.title);
@@ -39,9 +49,12 @@ const AddPost = () => {
         formData.append("image",file);
         formData.append("userid",JSON.parse(localStorage.getItem('userid')));
             
-        let result =  await axios.post("http://localhost:5000/addpost",formData) 
-        console.log(result)
-        history.push('/pages/home')    
+        await axios.post("http://localhost:5000/addpost",formData).then((data) => {
+            history.push('/pages/home')    
+            toast.success("Post added successfully!")
+        }).catch((error) => {
+            toast.error("Failed!")
+        })
     }
 
     return (
@@ -50,11 +63,12 @@ const AddPost = () => {
         <div className="container">
         <div className="w-75 mx-auto shadow p-5">
         <h2 className="text-xenter mb-4">Upload Post</h2>
-            <form>
+            <form onSubmit= {(e) => handleSubmit(addpost(e))}> 
                 <h4>Title</h4>
                     <input type="text"
                              className="px-4 py-2 mb-4" 
                               placeholder="Enter Title" 
+                              {...register('title',{ required:true })}
                               name="title"
                               value={title} 
                               onChange={e => onInputChange(e)} 
@@ -75,7 +89,8 @@ const AddPost = () => {
                               onChange={e => onChange(e)}
                     />
                 <br></br>
-                <button onClick={(e) => addpost(e)} className="btn btn-primary btn-block">Upload Post</button>
+                {/* <button onClick={(e) => addpost(e)} className="btn btn-primary btn-block">Upload Post</button> */}
+                <input type="submit" className="btn btn-primary btn-block" value="Upload Post"/>
             </form>
         </div>
     </div>

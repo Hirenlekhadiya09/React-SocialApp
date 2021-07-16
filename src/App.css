@@ -143,15 +143,44 @@
 .mypost {
   width: 320px !important;
   margin: 0px 5px 10px 5px;
-  height: 342px!important;
+  height: 250px!important;
   border-color: #e2e8f0;
-  box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
 }
 
 .post_image {
   display: block;
   margin: 2px auto!important;
-  max-width: 89%!important;
-  height: 64%!important;
+  max-width: 90%!important;
+  height: 100%!important;
   border-radius: 5%;
+}
+
+.edit-profile{
+  display: flex;
+  align-items: center;
+}
+.edit-profile img{
+  width: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  height: 150px;
+  margin-right: 60px;
+}
+
+.profile{
+  margin-top: 22px;
+    width: 143px;
+    margin-left: 0px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.myprofile_buttonDiv__1bLyk {
+  padding: 20px 0px;
+}
+
+.btnprofile{
+  font-size: 18px !important;
+  width: 200px !important;
+  padding: 12px 0px !important;
 }

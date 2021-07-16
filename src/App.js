@@ -2,6 +2,8 @@
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 // import Navbar from './components/Layout/Navbar';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Signup from './components/pages/signup';
 import Login from './components/pages/login';
@@ -17,6 +19,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+      <ToastContainer />
         <Switch>
           <Route exact path="/" component={Signup}/>
           <Route exact path="/Pages/login" component={Login}/>
