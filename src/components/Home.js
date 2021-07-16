@@ -1,5 +1,5 @@
 import React,{ useState, useEffect } from 'react'
-import Navbar from '../Layout/Navbar'
+import Navbar from './Layout/Navbar'
 import axios from 'axios';
 // import { Link } from 'react-router-dom'
 
@@ -11,7 +11,7 @@ const Home = () => {
     }, []);
 
     const loadPosts =  async () => {
-           const result = await axios.get("https://socialappbackendhiren.herokuapp.com/getpost")
+           const result = await axios.get("http://localhost:5000/getpost")
             setPost(result.data)
     }  
 
@@ -19,7 +19,7 @@ const Home = () => {
         var id = JSON.parse(localStorage.getItem('userid'));
         console.log("{}{}{}{}--",id)
         if (id && _id){
-            await axios.delete(`https://socialappbackendhiren.herokuapp.com/deletepost/${_id}`);
+            await axios.delete(`http://localhost:5000/deletepost/${_id}`);
             loadPosts();
         }
         else{
@@ -34,7 +34,7 @@ const Home = () => {
                 {post &&
                     post.map((post, index) => (
                                 <div className="homepost">
-                                    <img  className="post_images" alt="..." src={`https://socialappbackendhiren.herokuapp.com/${post.image}`}/>
+                                    <img  className="post_images" alt="..." src={`http://localhost:5000/${post.image}`}/>
                                     <div className="card-body">
                                         <h5 className="card-title">{post.title}</h5>
                                         <p className="card-text">{post.body}</p>

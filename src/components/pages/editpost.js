@@ -38,9 +38,9 @@ const Editpost = () => {
         formData.append("body",post.body);
         formData.append("image",file);
        
-        let result =  await axios.post("https://socialappbackendhiren.herokuapp.com/addpost",formData) 
+        let result =  await axios.post("http://localhost:5000/addpost",formData) 
         console.log(result)
-        history.push('/pages/home')    
+        history.push('/home')    
     }
 
     return (

@@ -43,10 +43,10 @@ const Login = () => {
         {
             return toast.error("Password is required");
         }
-            await axios.post("https://socialappbackendhiren.herokuapp.com/api/login",item).then((data) => {
+            await axios.post("http://localhost:5000/login",item).then((data) => {
             localStorage.setItem("auth",JSON.stringify(data.data.token))
             localStorage.setItem("userid",JSON.stringify(data.data.userid))
-            history.push('/pages/home')
+            history.push('/home')
             toast.success("You have successfully login!")
         }).catch((error) => {
             toast.error("Failed!")

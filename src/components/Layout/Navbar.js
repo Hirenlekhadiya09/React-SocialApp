@@ -23,7 +23,7 @@ const Navbar = () => {
        {
            localStorage.getItem('auth') ?
             <>
-                    <Link className="btn btndark" to="/Pages/home">Home</Link>
+                    <Link className="btn btndark" to="/home">Home</Link>
                     <Link className="btn btndark" to="/Pages/addpost">AddPost</Link>
                     <Link className="btn btndark" to="/Pages/mypost">My Post</Link>
                     <Link className="btn btndark" to="/Pages/profile">My Profile</Link>
