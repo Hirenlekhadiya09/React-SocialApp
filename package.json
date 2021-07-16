@@ -2,6 +2,10 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.4.0",
+    "npm": "7.18.1"
+  },
   "dependencies": {
     "@hookform/devtools": "^3.1.0",
     "@hookform/resolvers": "^2.6.0",
