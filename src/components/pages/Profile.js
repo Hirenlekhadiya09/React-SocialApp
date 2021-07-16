@@ -26,7 +26,7 @@ const Profile = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.put(`http://localhost:5000/updateprofile/${id}`, profile).then((data) => {
+        await axios.put(`https://socialappbackendhiren.herokuapp.com/updateprofile/${id}`, profile).then((data) => {
             history.push('/pages/profile')
             toast.success("Profile updated successfully!")
         }).catch((error) => {
@@ -35,7 +35,7 @@ const Profile = () => {
     }
 
     const loadUser = async () => {
-        const result = await axios.get(`http://localhost:5000/getprofileid/${id}`)
+        const result = await axios.get(`https://socialappbackendhiren.herokuapp.com/getprofileid/${id}`)
         setProfile(result.data)
     }
 
@@ -51,12 +51,12 @@ const Profile = () => {
     }, [post]);
 
     const loadPosts = async () => {
-        const result = await axios.get("http://localhost:5000/mypost", { params: { id: decoded.id } })
+        const result = await axios.get("https://socialappbackendhiren.herokuapp.com/mypost", { params: { id: decoded.id } })
         setPost(result.data.data)
     }
 
     const postHandle = async () => {
-        const result = await axios.get("http://localhost:5000/mypost", { params: { id: decoded.id } })
+        const result = await axios.get("https://socialappbackendhiren.herokuapp.com/mypost", { params: { id: decoded.id } })
         setPost(result.data.data)
     }
     const notificationHandle = async () => {
@@ -72,7 +72,7 @@ const Profile = () => {
 
                 <div className="w-75 mx-auto edit-profile">
                     <div>
-                        <img alt="..." src={`http://localhost:5000/${image}`} />
+                        <img alt="..." src={`https://socialappbackendhiren.herokuapp.com/${image}`} />
                         <div className="profile">
                             <div>
                                 <h6>Followers</h6>
@@ -130,7 +130,7 @@ const Profile = () => {
                     {post &&
                         post.map((post, index) => (
                             <div className="mypost col-lg-3">
-                                <img className="post_image" alt="..." src={`http://localhost:5000/${post.image}`} />
+                                <img className="post_image" alt="..." src={`https://socialappbackendhiren.herokuapp.com/${post.image}`} />
                             </div>
                         ))
                     }

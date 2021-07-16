@@ -16,7 +16,7 @@ const Mypost = () => {
     }, []);
 
     const loadPosts = async () => {    
-        const result = await axios.get("http://localhost:5000/mypost",{ params: { id: decoded.id } })   
+        const result = await axios.get("https://socialappbackendhiren.herokuapp.com/mypost",{ params: { id: decoded.id } })   
         setPost(result.data.data)
     }
 
@@ -28,7 +28,7 @@ const Mypost = () => {
             {post &&
                 post.map((post, index) => (
                             <div className="mypost col-lg-3">
-                                <img  className="post_image" alt="..." src={`http://localhost:5000/${post.image}`}/>
+                                <img  className="post_image" alt="..." src={`https://socialappbackendhiren.herokuapp.com/${post.image}`}/>
                                 <div className="card-body">
                                     <h5 className="card-title">{post.title}</h5>
                                     <p className="card-text">{post.body}</p>

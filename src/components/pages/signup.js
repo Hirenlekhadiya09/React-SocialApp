@@ -76,7 +76,7 @@ const Signup = () => {
         formData.append("password", user.password);
         formData.append("image", file);
 
-        await axios.post("http://localhost:5000/signup", formData).then((data) => {
+        await axios.post("https://socialappbackendhiren.herokuapp.com/api/signup", formData).then((data) => {
              // localStorage.setItem("id",)
             // console.log(result._id)
             //localStorage.setItem("auth",JSON.stringify(data.data.token))
