@@ -5,7 +5,6 @@ const path = require('path');
 const port = process.env.PORT || 3000;
 const app = express();
 const cors = require('cors')
-console.log("{][][][]",__dirname)
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(cors())
 app.get('/*', function (req, res) {
