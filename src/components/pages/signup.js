@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory,Link } from 'react-router-dom';
 import Navbar from '../Layout/Navbar'
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
@@ -76,7 +76,7 @@ const Signup = () => {
         formData.append("password", user.password);
         formData.append("image", file);
 
-        await axios.post("http://localhost:5000/signup", formData).then((data) => {
+        await axios.post(`${process.env.REACT_APP_NDOE_API}/signup`, formData).then((data) => {
              // localStorage.setItem("id",)
             // console.log(result._id)
             //localStorage.setItem("auth",JSON.stringify(data.data.token))
@@ -157,7 +157,7 @@ const Signup = () => {
                         <input type="submit" className="btn btn-primary btn-block" value="Signup"/>
                         <br></br>
                         <br></br>
-                        <p>Already have an account?  <a href="/Pages/login">Login</a> </p>
+                        <p>Already have an account?  <Link to="/Pages/login">Login</Link> </p>
                     </form>
                 </div>
             </div>

@@ -49,7 +49,7 @@ const AddPost = () => {
         formData.append("image",file);
         formData.append("userid",JSON.parse(localStorage.getItem('userid')));
             
-        await axios.post("http://localhost:5000/addpost",formData).then((data) => {
+        await axios.post(`${process.env.REACT_APP_NDOE_API}/addpost`,formData).then((data) => {
             history.push('/home')    
             toast.success("Post added successfully!")
         }).catch((error) => {

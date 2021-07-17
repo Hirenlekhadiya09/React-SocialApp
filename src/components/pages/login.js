@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { useHistory  } from 'react-router-dom';
+import { useHistory,Link  } from 'react-router-dom';
 import Navbar from '../Layout/Navbar'
 import { useForm } from 'react-hook-form';
 
@@ -27,7 +27,6 @@ const Login = () => {
             pass.type = "password"
         }
     }
-   
     const login = async (e) => {
         e.preventDefault();
         let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -43,7 +42,7 @@ const Login = () => {
         {
             return toast.error("Password is required");
         }
-            await axios.post("http://localhost:5000/login",item).then((data) => {
+            await axios.post(`${process.env.REACT_APP_NDOE_API}/login`,item).then((data) => {
             localStorage.setItem("auth",JSON.stringify(data.data.token))
             localStorage.setItem("userid",JSON.stringify(data.data.userid))
             history.push('/home')
@@ -95,7 +94,7 @@ const Login = () => {
                     <input type="submit" className="btn btn-primary btn-block" value="Log in"  />
                     <br></br>
                     <br></br>
-                    <p>Don't have an account!  <a href="/Pages/signup">Sign Up</a> </p>
+                    <p>Don't have an account!<Link to="/Pages/signup">Sign Up</Link></p>
                 </form>
             </div>
         </div>

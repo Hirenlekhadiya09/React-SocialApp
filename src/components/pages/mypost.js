@@ -16,7 +16,7 @@ const Mypost = () => {
     }, []);
 
     const loadPosts = async () => {    
-        const result = await axios.get("http://localhost:5000/mypost",{ params: { id: decoded.id } })   
+        const result = await axios.get(`${process.env.REACT_APP_NDOE_API}/mypost`,{ params: { id: decoded.id } })   
         setPost(result.data.data)
     }
 

@@ -38,7 +38,7 @@ const Editpost = () => {
         formData.append("body",post.body);
         formData.append("image",file);
        
-        let result =  await axios.post("http://localhost:5000/addpost",formData) 
+        let result =  await axios.post(`${process.env.REACT_APP_NDOE_API}/addpost`,formData) 
         console.log(result)
         history.push('/home')    
     }
