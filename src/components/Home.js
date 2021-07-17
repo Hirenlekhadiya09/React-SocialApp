@@ -12,7 +12,7 @@ const Home = () => {
 
     const loadPosts =  async () => {
            const result = await axios.get(`${process.env.REACT_APP_NDOE_API}/getpost`)
-            setPost(result.data)
+            setPost(result.data.reverse())
     }  
 
     const deletePost = async _id => {
