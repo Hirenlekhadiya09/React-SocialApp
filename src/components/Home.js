@@ -17,14 +17,8 @@ const Home = () => {
 
     const deletePost = async _id => {
         var id = JSON.parse(localStorage.getItem('userid'));
-        console.log("{}{}{}{}--", id)
-        if (id && _id) {
-            await axios.delete(`${process.env.REACT_APP_NDOE_API}/deletepost/${_id}`);
-            loadPosts();
-        }
-        else {
-            alert()
-        }
+        await axios.delete(`${process.env.REACT_APP_NDOE_API}/deletepost/${_id}`);
+        loadPosts();
     }
 
     return (
@@ -43,8 +37,7 @@ const Home = () => {
                             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm fontbold text-gray-700 mr-2 mb-2">Comment</span>
                             {post.userid === JSON.parse(localStorage.getItem('userid')) ?
                                 <button onClick={() => deletePost(post._id)} className="btn btn-delete btn-block"><i className="fa fa-trash" aria-hidden="true"></i></button>
-                                : ""}
-                            {/* <button onClick={() => deletePost(post._id)} className="btn btn-delete btn-block"><i className="fa fa-trash" aria-hidden="true"></i></button> */}
+                            : ""}
                             {/* <Link className="btn btn-edit btn-block" to="/Pages/editpost" ><i class="fa fa-edit" aria-hidden="true"></i></Link> */}
                         </div>
                     ))
